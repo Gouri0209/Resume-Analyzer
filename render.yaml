@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: ai-resume-analyzer
+    env: python
+    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.0
+      - key: APP_NAME
+        value: AI Resume Analyzer
+      - key: ENVIRONMENT
+        value: production
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        value: sqlite:///./resume_analyzer.db
+      - key: UPLOAD_DIR
+        value: uploads
+      - key: REPORTS_DIR
+        value: reports
+      - key: MAX_UPLOAD_SIZE_MB
+        value: 10
+    # Note: Render's free tier does not support persistent disks.
+    # Uploaded resumes and the SQLite database will reset on each redeploy.
+    # If you upgrade to a paid plan later, you can re-add a disk block, e.g.:
+    # disk:
+    #   name: resume-analyzer-data
+    #   mountPath: /opt/render/project/src/uploads
+    #   sizeGB: 1

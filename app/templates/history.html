@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}History — {{ app_name }}{% endblock %}
+{% block content %}
+<section class="history-section">
+  <div class="upload-header">
+    <h1>Analysis History</h1>
+    <p>Your most recent resume analyses.</p>
+  </div>
+
+  {% if records %}
+  <div class="history-table-wrap">
+    <table class="history-table">
+      <thead>
+        <tr>
+          <th>Candidate</th>
+          <th>Resume File</th>
+          <th>Target Role</th>
+          <th>Overall Score</th>
+          <th>Date</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in records %}
+        <tr>
+          <td>{{ r.candidate_name or "—" }}</td>
+          <td>{{ r.resume_filename }}</td>
+          <td>{{ r.job_title or "—" }}</td>
+          <td><span class="score-pill">{{ r.overall_score | round(1) }}%</span></td>
+          <td>{{ r.created_at[:10] if r.created_at else "—" }}</td>
+          <td><a href="/dashboard/{{ r.id }}" class="btn-text">View →</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="empty-state">
+    <p>No analyses yet.</p>
+    <a href="/upload" class="btn btn-primary">Analyze Your First Resume</a>
+  </div>
+  {% endif %}
+</section>
+{% endblock %}

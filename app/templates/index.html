@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}{{ app_name }} — Smarter Resume Insights{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-content">
+    <span class="badge">AI-Powered Resume Intelligence</span>
+    <h1>Land more interviews with <span class="gradient-text">data-driven</span> resume insights</h1>
+    <p class="hero-subtitle">
+      Upload your resume and a job description. Get an instant ATS score, semantic match analysis,
+      skill gaps, and concrete suggestions to improve your chances — powered by sentence embeddings and NLP.
+    </p>
+    <div class="hero-actions">
+      <a href="/upload" class="btn btn-primary btn-lg">Analyze My Resume →</a>
+      <a href="/history" class="btn btn-ghost btn-lg">View History</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-value">4</span><span class="stat-label">Score Metrics</span></div>
+      <div class="stat"><span class="stat-value">100+</span><span class="stat-label">Skills Tracked</span></div>
+      <div class="stat"><span class="stat-value">&lt;10s</span><span class="stat-label">Analysis Time</span></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="floating-card card-1">
+      <div class="mini-score-circle" data-score="87">
+        <svg viewBox="0 0 120 120"><circle class="track" cx="60" cy="60" r="52"/><circle class="progress" cx="60" cy="60" r="52"/></svg>
+        <span class="mini-score-value">87%</span>
+      </div>
+      <p>ATS Score</p>
+    </div>
+    <div class="floating-card card-2">
+      <p class="skill-chip matched">✓ Python</p>
+      <p class="skill-chip matched">✓ FastAPI</p>
+      <p class="skill-chip missing">✕ Docker</p>
+    </div>
+    <div class="floating-card card-3">
+      <p class="mini-label">Semantic Match</p>
+      <div class="mini-bar"><div class="mini-bar-fill" style="width:76%"></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="features">
+  <h2>Everything you need to optimize your resume</h2>
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="feature-icon">🎯</div>
+      <h3>ATS Score</h3>
+      <p>Understand how well your resume will parse in applicant tracking systems.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🧠</div>
+      <h3>Semantic Similarity</h3>
+      <p>Sentence-transformer embeddings compare meaning, not just keywords.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔍</div>
+      <h3>Skill Gap Detection</h3>
+      <p>See exactly which required skills are missing from your resume.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📊</div>
+      <h3>Visual Dashboard</h3>
+      <p>Animated charts and score circles make results easy to digest.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">💡</div>
+      <h3>Actionable Suggestions</h3>
+      <p>Concrete, prioritized recommendations to strengthen your resume.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📄</div>
+      <h3>Downloadable Report</h3>
+      <p>Export a polished PDF report to track your progress over time.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <h2>Ready to see where your resume stands?</h2>
+  <a href="/upload" class="btn btn-primary btn-lg">Get Started — It's Free</a>
+</section>
+{% endblock %}

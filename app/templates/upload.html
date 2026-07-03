@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Analyze Resume — {{ app_name }}{% endblock %}
+{% block content %}
+<section class="upload-section">
+  <div class="upload-header">
+    <h1>Analyze your resume</h1>
+    <p>Upload a PDF resume and paste the job description you're targeting.</p>
+  </div>
+
+  <form id="analyze-form" class="upload-form">
+    <div class="form-grid">
+      <div class="form-col">
+        <label class="form-label">Resume (PDF)</label>
+        <div id="dropzone" class="dropzone">
+          <input type="file" id="resume-input" name="resume" accept="application/pdf" hidden required>
+          <div id="dropzone-empty" class="dropzone-content">
+            <div class="upload-icon">⬆</div>
+            <p><strong>Drag & drop</strong> your resume here</p>
+            <p class="dropzone-sub">or click to browse — PDF only, up to 10MB</p>
+          </div>
+          <div id="dropzone-filled" class="dropzone-content" style="display:none">
+            <div class="upload-icon">📄</div>
+            <p id="file-name" class="file-name"></p>
+            <button type="button" id="remove-file" class="btn-text">Remove file</button>
+          </div>
+        </div>
+
+        <label class="form-label" for="candidate_name">Candidate Name (optional)</label>
+        <input type="text" id="candidate_name" name="candidate_name" class="form-input" placeholder="Jane Doe">
+
+        <label class="form-label" for="job_title">Target Job Title (optional)</label>
+        <input type="text" id="job_title" name="job_title" class="form-input" placeholder="Senior Backend Engineer">
+      </div>
+
+      <div class="form-col">
+        <label class="form-label" for="job_description">Job Description</label>
+        <textarea id="job_description" name="job_description" class="form-textarea" rows="14"
+          placeholder="Paste the full job description here..." required></textarea>
+      </div>
+    </div>
+
+    <div id="error-box" class="error-box" style="display:none"></div>
+
+    <button type="submit" id="submit-btn" class="btn btn-primary btn-lg btn-block">
+      <span id="submit-text">Analyze Resume</span>
+      <span id="submit-spinner" class="spinner" style="display:none"></span>
+    </button>
+  </form>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="/static/js/upload.js"></script>
+{% endblock %}

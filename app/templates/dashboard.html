@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — {{ app_name }}{% endblock %}
+{% block content %}
+<section class="dashboard">
+  <div class="dashboard-header">
+    <div>
+      <h1>Analysis Dashboard</h1>
+      <p class="dashboard-sub">
+        {{ analysis.candidate_name or "Candidate" }}
+        {% if analysis.job_title %} · Target role: {{ analysis.job_title }}{% endif %}
+        · {{ analysis.resume_filename }}
+      </p>
+    </div>
+    <div class="dashboard-actions">
+      <a href="/api/report/{{ analysis.id }}" class="btn btn-primary">⬇ Download PDF Report</a>
+      <a href="/upload" class="btn btn-ghost">New Analysis</a>
+    </div>
+  </div>
+
+  <div class="score-grid">
+    <div class="score-card">
+      <div class="score-circle" data-score="{{ analysis.overall_score }}">
+        <svg viewBox="0 0 120 120"><circle class="track" cx="60" cy="60" r="52"/><circle class="progress" cx="60" cy="60" r="52"/></svg>
+        <span class="score-value">{{ analysis.overall_score | round(0, 'floor') | int }}%</span>
+      </div>
+      <p class="score-label">Overall Score</p>
+    </div>
+    <div class="score-card">
+      <div class="score-circle" data-score="{{ analysis.ats_score }}">
+        <svg viewBox="0 0 120 120"><circle class="track" cx="60" cy="60" r="52"/><circle class="progress" cx="60" cy="60" r="52"/></svg>
+        <span class="score-value">{{ analysis.ats_score | round(0, 'floor') | int }}%</span>
+      </div>
+      <p class="score-label">ATS Score</p>
+    </div>
+    <div class="score-card">
+      <div class="score-circle" data-score="{{ analysis.similarity_score }}">
+        <svg viewBox="0 0 120 120"><circle class="track" cx="60" cy="60" r="52"/><circle class="progress" cx="60" cy="60" r="52"/></svg>
+        <span class="score-value">{{ analysis.similarity_score | round(0, 'floor') | int }}%</span>
+      </div>
+      <p class="score-label">Semantic Similarity</p>
+    </div>
+    <div class="score-card">
+      <div class="score-circle" data-score="{{ analysis.keyword_match_score }}">
+        <svg viewBox="0 0 120 120"><circle class="track" cx="60" cy="60" r="52"/><circle class="progress" cx="60" cy="60" r="52"/></svg>
+        <span class="score-value">{{ analysis.keyword_match_score | round(0, 'floor') | int }}%</span>
+      </div>
+      <p class="score-label">Keyword Match</p>
+    </div>
+  </div>
+
+  <div class="dashboard-grid">
+    <div class="panel">
+      <h3>Summary</h3>
+      <p>{{ analysis.summary }}</p>
+    </div>
+
+    <div class="panel">
+      <h3>Skill Match Breakdown</h3>
+      <canvas id="skillsChart" height="180"></canvas>
+    </div>
+
+    <div class="panel">
+      <h3>✅ Matched Skills ({{ analysis.matched_skills|length }})</h3>
+      <div class="chip-list">
+        {% for skill in analysis.matched_skills %}<span class="skill-chip matched">{{ skill }}</span>{% else %}<p class="empty-note">None found</p>{% endfor %}
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3>❌ Missing Skills ({{ analysis.missing_skills|length }})</h3>
+      <div class="chip-list">
+        {% for skill in analysis.missing_skills %}<span class="skill-chip missing">{{ skill }}</span>{% else %}<p class="empty-note">None — great coverage!</p>{% endfor %}
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3>🎓 Education</h3>
+      <ul class="list">
+        {% for item in analysis.education %}<li>{{ item }}</li>{% else %}<li class="empty-note">Not clearly identified</li>{% endfor %}
+      </ul>
+    </div>
+
+    <div class="panel">
+      <h3>💼 Experience</h3>
+      <ul class="list">
+        {% for item in analysis.experience %}<li>{{ item }}</li>{% else %}<li class="empty-note">Not clearly identified</li>{% endfor %}
+      </ul>
+    </div>
+
+    <div class="panel">
+      <h3>🚀 Projects</h3>
+      <ul class="list">
+        {% for item in analysis.projects %}<li>{{ item }}</li>{% else %}<li class="empty-note">Not clearly identified</li>{% endfor %}
+      </ul>
+    </div>
+
+    <div class="panel panel-good">
+      <h3>💪 Strengths</h3>
+      <ul class="list">
+        {% for item in analysis.strengths %}<li>{{ item }}</li>{% endfor %}
+      </ul>
+    </div>
+
+    <div class="panel panel-warn">
+      <h3>⚠️ Weaknesses</h3>
+      <ul class="list">
+        {% for item in analysis.weaknesses %}<li>{{ item }}</li>{% endfor %}
+      </ul>
+    </div>
+
+    <div class="panel panel-info">
+      <h3>💡 Improvement Suggestions</h3>
+      <ul class="list">
+        {% for item in analysis.suggestions %}<li>{{ item }}</li>{% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_head %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  window.__ANALYSIS__ = {
+    matched: {{ analysis.matched_skills|length }},
+    missing: {{ analysis.missing_skills|length }}
+  };
+</script>
+<script src="/static/js/dashboard.js"></script>
+{% endblock %}
