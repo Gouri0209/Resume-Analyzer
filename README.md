@@ -7,22 +7,17 @@ in a modern, animated SaaS-style dashboard.
 
 ## Features
 
-- 📄 Drag & drop PDF resume upload
-- 🧠 Semantic similarity scoring using TF-IDF term-overlap analysis
-- 🎯 ATS-friendliness score based on section coverage, keyword density, and formatting
-- 🔍 Skills, education, experience, and project extraction
-- ❌ Missing skill / keyword gap detection
-- 📝 Auto-generated summary, strengths, weaknesses, and improvement suggestions
-- 📊 Animated score circles and Chart.js skill-match doughnut chart
-- 🌗 Dark mode with persisted preference
-- 📥 Downloadable PDF analysis report
-- 🕘 Analysis history stored in SQLite via SQLAlchemy
-- 📱 Fully responsive, modern SaaS UI
-
-## Screenshots
-
-> Add screenshots of the landing page, upload page, and dashboard here after running the
-> app locally, e.g. `docs/screenshot-landing.png`, `docs/screenshot-dashboard.png`.
+-  Drag & drop PDF resume upload
+-  Semantic similarity scoring using TF-IDF term-overlap analysis
+-  ATS-friendliness score based on section coverage, keyword density, and formatting
+-  Skills, education, experience, and project extraction
+-  Missing skill / keyword gap detection
+-  Auto-generated summary, strengths, weaknesses, and improvement suggestions
+-  Animated score circles and Chart.js skill-match doughnut chart
+-  Dark mode with persisted preference
+-  Downloadable PDF analysis report
+-  Analysis history stored in SQLite via SQLAlchemy
+-  Fully responsive, modern SaaS UI
 
 ## Tech Stack
 
